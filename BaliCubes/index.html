@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali Cubes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0; 
+        }
+        .container {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        h1, h2 {
+            margin-top: 0;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.2s; 
+        }
+        button:hover:not(:disabled) { 
+            transform: translateY(-2px); 
+        }
+        button:disabled { 
+            background: #7f8c8d;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        .btn-warning {
+            background: #f1c40f;
+            color: black;
+        }
+        #setup-screen { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .input-group { 
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 18px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 18px;
+            width: 60px;
+            text-align: center;
+            border-radius: 8px;
+            border: none;
+        }
+        #game-screen {
+            display: none;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .controls-area {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #465c71;
+        }
+        .dice-display {
+            font-size: 48px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+        }
+        .actions-display { 
+            display: flex; 
+            justify-content: center;
+            gap: 15px; 
+            min-height: 45px; 
+        }
+        #boards-area { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+        .player-board { 
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 8px solid #bdc3c7;
+            text-align: left;
+            transition: 0.3s;
+        }
+        .player-board.active { 
+            border-left-color: #e74c3c;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+            transform: scale(1.02);
+        }
+        .numbers-row { 
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .number-box {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #01a546;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .number-box.removed { 
+            background: #bdc3c7;
+            color: #7f8c8d;
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        #win-screen { 
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .winner-text { 
+            font-size: 32px;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="setup-screen">
+            <h1>Bali Cubes</h1>
+            <div class="input-group">
+                <label for="num-players">Number of players:</label>
+                <input type="number" id="num-players" min="2" max="6" value="2">
+            </div>
+            <button id="start-btn" class="btn-success">Start Game</button>
+        </div>
+
+        <div id="game-screen">
+            <h2 id="turn-indicator" style="color: #ffffff;">Player 1's Turn</h2>
+            <div class="controls-area">
+                <button id="roll-btn" class="btn-primary">Roll Dice</button>
+                <div id="dice-display" class="dice-display"></div>
+                <div id="actions-display" class="actions-display"></div>
+            </div>
+            <div id="boards-area"></div>
+        </div>
+
+        <div id="win-screen">
+            <h1>Game Over!</h1>
+            <div id="winner-text" class="winner-text">Player 1 wins!</div>
+            <button id="restart-btn" class="btn-primary">Play Again</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
