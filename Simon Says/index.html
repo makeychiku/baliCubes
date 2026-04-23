@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #1e272e; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .container { 
+            background: #2f3640; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
+            text-align: center; 
+            max-width: 500px; 
+            width: 100%; 
+        }
+        h1 { 
+            margin-top: 0; 
+            color: #f5f6fa; 
+            font-size: 36px; 
+            letter-spacing: 2px;
+        }
+        .status-text { 
+            font-size: 24px; 
+            height: 30px; 
+            margin-bottom: 20px; 
+            color: #dcdde1; 
+            font-weight: bold; 
+        }
+        .score-board { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 30px; 
+            font-size: 18px; 
+            color: #7f8fa6; 
+        }
+        
+        .game-board { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            max-width: 350px; 
+            margin: 0 auto 30px auto; 
+        }
+        .simon-btn { 
+            aspect-ratio: 1 / 1; 
+            border-radius: 15px; 
+            border: 4px solid #1e272e; 
+            cursor: pointer; 
+            transition: transform 0.1s, filter 0.1s, box-shadow 0.1s; 
+            filter: brightness(0.5); 
+        }
+        
+        .btn-0 { 
+            background-color: #e84118; 
+        }
+        .btn-1 { 
+            background-color: #4cd137; 
+        }
+        .btn-2 { 
+            background-color: #00a8ff; 
+        }
+        .btn-3 { 
+            background-color: #fbc531; 
+        }
+
+        .simon-btn.active { 
+            filter: brightness(1.2); 
+            transform: scale(0.95); 
+            box-shadow: 0 0 20px currentColor; 
+        }
+        .game-board:not(.locked) .simon-btn:hover { 
+            filter: brightness(0.8); 
+        }
+
+        .start-btn { 
+            background: #8c7ae6; 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 20px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+        .start-btn:hover:not(:disabled) { 
+            background: #9c88ff; 
+            transform: translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.4); 
+        }
+        .start-btn:disabled { 
+            background: #718093; 
+            cursor: not-allowed; 
+            transform: none; 
+            box-shadow: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SIMON SAYS</h1>
+        
+        <div class="score-board">
+            <div>Level: <span id="current-level">1</span></div>
+            <div>Best Score: <span id="high-score">0</span></div>
+        </div>
+
+        <div id="status-text" class="status-text">Press Start to Play</div>
+
+        <div id="game-board" class="game-board locked">
+            <div class="simon-btn btn-0" data-id="0"></div>
+            <div class="simon-btn btn-1" data-id="1"></div>
+            <div class="simon-btn btn-2" data-id="2"></div>
+            <div class="simon-btn btn-3" data-id="3"></div>
+        </div>
+
+        <button id="start-btn" class="start-btn">Start Game</button>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="render.js"></script>
+</body>
+</html>
