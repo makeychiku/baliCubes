@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            background: #f4f4f9; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+        }
+        .container { 
+            width: 100%; 
+            max-width: 800px; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            margin-bottom: 20px; 
+        }
+        h2 { 
+            margin-top: 0; 
+            color: #333; 
+        }
+        .input-group { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 15px; 
+        }
+        input[type="text"] { 
+            flex: 1; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 16px; 
+        }
+        button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+        }
+        button:disabled { 
+            background: #ccc !important; 
+            cursor: not-allowed; 
+        }
+        .btn-primary { 
+            background: #4495f3; 
+            color: white; 
+        }
+        .btn-primary:hover:not(:disabled) { 
+            background: #3380d8; 
+        }
+        .btn-danger { 
+            background: #ff4d4d; 
+            color: white; 
+        }
+        .btn-warning { 
+            background: #ffc107; 
+            color: black; 
+        }
+        
+        .study-card { 
+            height: 200px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #eef2f5; 
+            border-radius: 10px; 
+            font-size: 24px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-align: center; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            border: 2px dashed #b0c4de; 
+            transition: 0.3s;
+        }
+        .study-controls { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+        }
+        
+        .list-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            margin-bottom: 10px; 
+            transition: 0.3s; 
+        }
+        .list-item.learned {
+            background: #d4edda; 
+            border-color: #c3e6cb; 
+            opacity: 0.8; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Flashcards</h1>
+
+    <div class="container">
+        <h2 id="form-title">Add Card</h2>
+        <div class="input-group">
+            <input type="text" id="input-front" placeholder="Front / Term...">
+            <input type="text" id="input-back" placeholder="Back / Definition...">
+        </div>
+        <button id="add-btn" class="btn-primary">Add</button>
+    </div>
+
+    <div class="container" id="study-section">
+        <h2>Study</h2>
+        <div style="margin-bottom: 10px;">
+            <label>
+                <input type="checkbox" id="filter-learned"> Study unlearned only
+            </label>
+        </div>
+        <div id="study-progress" style="margin-bottom: 10px; font-weight: bold; color: #666;"></div>
+        
+        <div id="study-card" class="study-card">
+            Deck is empty
+        </div>
+
+        <div class="study-controls">
+            <button id="prev-btn">Prev</button>
+            <button id="flip-btn" class="btn-primary">Flip</button>
+            <button id="next-btn">Next</button>
+            <button id="shuffle-btn">Shuffle</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Deck List</h2>
+        <div id="cards-list"></div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="render.js"></script>
+</body>
+</html>
