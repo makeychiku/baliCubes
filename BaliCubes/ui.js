@@ -71,21 +71,8 @@ class HTMLRenderer {
   renderActions = (moves) => {
     this.actionsDisplay.innerHTML = "";
 
-    if (moves.length === 0) {
-      const skipBtn = document.createElement("button");
-      skipBtn.className = "btn-warning move-btn";
-      skipBtn.innerText = "No available moves (Skip)";
-
-      skipBtn.addEventListener("click", () => {
-        this.game.nextTurn();
-        this.updateUI();
-      });
-
-      this.actionsDisplay.appendChild(skipBtn);
-      return;
-    }
-
-    moves.forEach((move) => {
+    for (let i = 0; i < moves.length; i++) {
+      const move = moves[i];
       const btn = document.createElement("button");
       btn.className = "btn-success move-btn";
       btn.innerText = move.text;
@@ -101,30 +88,31 @@ class HTMLRenderer {
       });
 
       this.actionsDisplay.appendChild(btn);
-    });
+    }
   };
 
   renderBoards = () => {
     let allBoardsHtml = "";
 
-    this.game.players.forEach((player, index) => {
-      const isActive = index === this.game.currentPlayerIndex ? "active" : "";
+    for (let i = 0; i < this.game.players.length; i++) {
+      const player = this.game.players[i];
+      const isActive = i === this.game.currentPlayerIndex ? "active" : "";
 
       let numbersHtml = "";
-      for (let i = 1; i <= 12; i++) {
-        const isRemoved = !player.numbers.includes(i) ? "removed" : "";
-        numbersHtml += `<div class="number-box ${isRemoved}">${i}</div>`;
+      for (let j = 1; j <= 12; j++) {
+        const isRemoved = !player.numbers.includes(j) ? "removed" : "";
+        numbersHtml += `<div class="number-box ${isRemoved}">${j}</div>`;
       }
 
       allBoardsHtml += `
-      <div class="player-board ${isActive}">
-        <h3 style="margin: 0;">Player ${player.id}</h3>
-        <div class="numbers-row">
-          ${numbersHtml}
-        </div>
-      </div>
-    `;
-    });
+  <div class="player-board ${isActive}">
+    <h3 style="margin: 0;">Player ${player.id}</h3>
+    <div class="numbers-row">
+      ${numbersHtml}
+    </div>
+  </div>
+  `;
+    }
 
     this.boardsArea.innerHTML = allBoardsHtml;
   };
