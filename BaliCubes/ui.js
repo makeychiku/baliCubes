@@ -71,6 +71,25 @@ class HTMLRenderer {
   renderActions = (moves) => {
     this.actionsDisplay.innerHTML = "";
 
+    if (moves.length === 0) {
+      const skipBtn = document.createElement("button");
+      skipBtn.className = "btn-warning move-btn";
+      skipBtn.innerText = "Skip Turn";
+
+      skipBtn.addEventListener("click", () => {
+        const isGameOver = this.game.makeMove([]);
+
+        if (isGameOver) {
+          this.showWinScreen();
+        } else {
+          this.updateUI();
+        }
+      });
+
+      this.actionsDisplay.appendChild(skipBtn);
+      return;
+    }
+
     for (let i = 0; i < moves.length; i++) {
       const move = moves[i];
       const btn = document.createElement("button");
